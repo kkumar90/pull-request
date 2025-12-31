@@ -1,0 +1,511 @@
+History of Unix and Linux
+
+Game : Space war game
+
+DOS : single user single processer
+windows : single user multi processer
+
+Unix : Ken Thompson Bell Labs in the late 1960s and early 1970s.
+
+Minix : In the early 1980s, Professor Andrew S. Tanenbaum created a small Unix-like operating system called Minix
+
+Linux :  In 1991, a 21-year-old student named Linus Torvalds
+
+The name Linux is a combination of his first name, Linus, and Unix
+
+Unix is licensed , Linux is FREE
+
+Linux is Open-Source
+Linux is Multi-User
+Linux is Multi-Tasking
+Linux is Secure (Strong Security Features and regular updates)
+Linux is Portable (Can run in various hardware platforms)
+
+
+Linux File Hierarchy Structure
+============================
+
+Diagram
+
+The Linux File Hierarchy Structure or the Filesystem Hierarchy Standard (FHS) defines the directory structure and directory contents in Unix-like operating systems. It is maintained by the Linux Foundation.
+
+/(Root)        : Every single file and directory start from the root directory.
+/bin           : Contains binary executables.cat, ls, cp etc are here
+/boot         : Boot loader files, e.g., kernels, initrd.
+/dev         : Include terminal devices, usb, or any device attached to the system.
+/etc         : Contains configuration files required by all programs.
+/home        : Home directories for all users to store their personal files.
+/tmp         : Temporary files.
+
+
+
+Linux Commands
+=============
+
+1. File and Directory Operations Commands
+
+2. File Permission Commands
+
+3. File Compression and Archiving Commands
+
+4. Process Management Commands
+
+5. System Information Commands
+
+6. Networking Commands
+
+7. IO Redirection Commands
+
+8. Environment Variable Commands
+
+9. User Management Commands
+
+10. VI Shortcuts Commands:
+
+LOGGING AND AUDITING
+
+INSTALLING PACKAGES
+
+========================================
+
+Launch RedHat Linux EC2 instance and install MobaXterm
+
+sudo -s  - switch to root
+logout or ctrl d to logout
+
+sudo -i - switch to root
+
+sudo su - switch to root
+
+all three do the same work
+
+cat /etc/os-release  --> to check the which OS and Flavour
+
+
+
+
+
+1. File and Directory Operations Commands
+-----------------------------------------
+
+ls              : List files and directories.
+
+-l: Long format listing.
+-a: Include hidden files hidden ones
+-h: Human-readable file sizes.
+
+ls -al              : Displays files and directories with detailed information.
+ls -a               : shows all files and directories, including hidden
+ls -lh             : Displays file sizes in a human-readable format.
+ls -lt             : Displays files
+ls -ltr         : reverse sorting
+
+ls new*         : to list files starting with new
+
+
+-rw-r--r--. 1 root     root          0 Dec 21 13:39 file1
+drwxr-xr-x. 2 root     root          6 Dec 21 13:39 test
+
+- represent file
+d represent directory
+
+
+cd                : Change directory.
+touch filename            : to create a empty file
+pwd             : Print current working directory.
+mkdir            : Create a new directory.
+cd ..            : move back to one directory
+
+ mkdir hello
+
+rmdir foldername    : delete directory
+
+ rmdir hello
+
+rm        
+-r: Remove directories recursively.
+-f: Force removal without confirmation.
+
+rm            : deletes the file
+rm -r             : deletes the directory and its contents.
+rm -f            : forcefully deletes the file without confirmation.
+
+cp            : Copy files and directories.
+
+Ex:  cp file.txt file2.txt
+     cp file.txt /test/file.txt
+
+.            : Present location
+
+cp -r             : copies the directory “directory” and its contents to the specified destination.
+
+mv            : Move/rename files and directories.
+
+Ex: mv file1 testfolder/
+    mv file1 file5
+
+===================
+touch            : Create an empty file .
+
+Ex: touch file        : create single file
+    touch file{1..5}    : Create 5 files at a time
+
+=====================
+
+cat            : View the contents of a file.
+
+head            : Display the first few lines of a file.
+-n: Specify the number of lines to display.
+
+head file.txt       : Shows the first 10 lines of the file “file.txt”.
+head -n 5 file.txt     : Displays the first 5 lines of the file “file.txt”.
+
+tail            : Display the last few lines of a file.
+-n: Specify the number of lines to display.
+
+tail file.txt         : Shows the last 10 lines of the file “file.txt”.
+tail -n 5 file.txt     : Displays the last 5 lines of the file “file.txt”.
+
+
+=======================================
+sort             : Sorting the content in the file
+
+Ex: create a file with alphabets inside
+A
+C
+F
+B
+G
+
+    sort file.txt    : sorting content
+    sort -r file.txt     : reverse sort
+
+Ex: create a file with alphabets inside duplicates
+A
+A
+C
+F
+F
+B
+B
+G
+
+Removing duplicates
+
+============================
+
+sort file.txt | uniq
+
+split             : to split the files into multiple files
+
+Ex:  split -l 4 file.txt   --> it will split into multiple files with lines of 4
+     ls
+
+==============================
+
+cmp and diff [seeing 2 files are same or not and see the difference]
+
+--> create 2 files : file1 --> this is Reyaz sir, file2 --> this is Reyaz aws devops trainer
+
+Ex:   cmp file1 file2  --> it will show only files are same are not [cmp: EOF on file1 - if it shows like this, there is a diff]
+      diff file1 file2  ---> shows the difference
+      diff -u file1 file2  ---> shows line by line comparison
+
+=============================
+Coming to home directory
+
+Ex: if you are in some other directory say cd /etc/
+just do cd --> you will come to home directory . ~ shows home directory
+
+============================
+
+find            :
+-name: Search by filename.
+-type: Search by file type.
+
+find /path/to/search -name “*.txt”  : Searches for all files with the extension “.txt” in the specified directory.
+
+find /home/john -name 'file*'  :  Find files in /home/john that start with "file".
+
+Ex: find ./ -name test.txt  : in current directory ./ find test.txt
+
+========================
+
+
+touch file1    : to create a file
+ls/ll        : to list the files
+cat file1    : to show content of a file.
+more file1    : to show content of a file.
+cat > filename  : to insert the content to a file
+cat>>file1    : to append the content to a file.    
+cp file1 file3    : to copy content from file1 to file3
+mv file1 reyaz    : to rename file1 to reyaz
+rm file1    : to remove a file
+rm file1 -f    : to remove a file forcefully
+touch file{1..10}: to create file1 to file10
+rm * -f        : to remove all files
+wc -l file1    : to show the lines, words and characters of a file
+cat -n file1     : to print the line numbers
+
+=================
+history        : to print all the commands user used for the current session
+ Ex: history
+     history | grep word " : search for a word in history
+====================
+
+help        : help
+ Ex: ls --help
+man
+ Ex: man ls
+
+=====================
+
+which         : to see the executable path
+
+Ex: which ls
+
+====================
+
+bc    : calculator [yum install -y bc]
+
+==================
+cal    : calendar
+
+Ex: cal
+    cal APRIL 1986
+
+
+head file1    : to print top 10 lines of a file
+head -5 file1    : to print top 5 lines of a file
+head -12 file1    : to print top 12 lines of a file
+
+tail file1    : to print bottom 10 lines of a file
+tail -5 file1    : to print bottom 5 lines of a file
+tail -12 file1    : to print bottom 12 lines of a file
+
+
+
+pwd        : to print working directory
+mkdir dir1    : to create a folder
+cd dir1        : to switch to dir1
+cd ..        : to switch one folder back
+cd ../..        : to switch to multiple folders
+cd /        : switch to root directory , see many directories inside root
+
+Absolute path : entire path  Ex: cd /home/ec2-user/newdir/sampledir
+Relative Path : just directory name Ex: cd /newdir
+
+
+sudo -i        : to switch for root user
+who or w    : to show which user logged to our server
+ip addr/ifconfig: to show the ip address
+hostname -i    : to show the ip address
+hostname    : to show the hostname
+hostnamectl set-hostname reyaz: to set hostname as Reyaz
+sudo -i        : to login to hostname
+hostname    : to show the hostname    
+clear              : to clear the screen
+
+
+EDITORS:
+to insert the content and to edit.
+
+TYPES:
+1. vi/vim
+2. nano - for beginners (contains more options)
+
+i    : to insert the content
+esc    : to exit from insert mode
+
+
+MODES:
+1. command mode
+2. insert mode
+3. save & exit mode
+
+
+
+SAVE & EXIT:
+:w    : save
+:q    : exit
+:wq    : to save and exit
+
+
+INSERT MODE:
+i    : insert the content
+I    : start of line
+A    : end of line
+O    : new line above existing
+o    : below existing line
+
+
+COMMAND MODE:
+
+gg    : first line of file
+shift g    : last line of file
+10gg    : 10th line of file
+:10    : 10th line of file
+yy    : copies a single line
+4yy    : copies four lines
+p    : to paste for one time
+4p    : to paste for four times
+dd    : to delete a single line
+4dd    : to delete four lines
+u    : to undo
+/word    : to search for a word
+
+
+GREP: to search for a word
+GLOBAL REGULAR EXPRESSION PRINT
+
+create a sample file with data
+This is Reyaz. Reyaz is AWS Trainer and DevOps trainer. Excellent trainer. AWS Class
+
+grep reyaz file1    : to search for word in file1
+
+grep trainer file1 -i    : -i: to avoid case sensitive
+
+grep 'word1\|word2' file1: to search for multiple words
+
+=======================================
+script            : To record activities
+
+Ex: script
+    pwd
+    ls
+    cal
+ctrl+ d
+
+cat typescript
+
+
+=========================================================================================
+
+alias         :  setting shortcut for commands
+
+Ex: alias l="ls -ltr"
+    just type l
+
+
+File Compression and Archiving Commands
+-------------------------------------------
+
+gzip         : compressing the files in Linux [gzip is only for files, not for directories, tar for that]
+
+Ex: gzip -k filename    : -k meaning keep original file
+    gunzip filename    : unzipping
+
+============================================
+
+tar         : Create or extract archive files.
+
+-c: Create a new archive.
+-x: Extract files from an archive.
+-f: Specify the archive file name.
+-v: Verbose mode.
+-z: Compress the archive with gzip.
+-j: Compress the archive with bzip2.
+
+
+===============================================
+
+tar        : compressing a folder/directory
+
+create a folder first : mkdir test
+
+Ex: tar -czf test.tar.gz test/    --> -c compress, -f file
+
+untar        : decompress a folder/directory
+
+Ex: tar -xzf test.tar.gz  --> -x extract
+
+===========================================
+
+zip    : compress multiple files in one zip file
+
+create file1 and file2
+
+Ex: zip myfiles.zip file1 file2
+
+unzip myfiles.zip
+
+unzip -l myfiles.zip   --> this shows file details in zip file
+
+==========================================
+
+
+
+SED: STREAM EDITOR
+to replace words in a file
+
+have a sample csv file
+
+wget https://gist.github.com/kevin336/acbb2271e66c10a5b73aacf82ca82784/archive/e38afe62e088394d61ed30884dd50a6826eee0a8.zip
+
+
+sed -n '7,14p' file1 : to print from line 7 to 14 lines
+sed -n '5,15p' file1 : to print from line 5 to 15 lines
+
+
+sed -i 's/word1/word2/' file1    : to replace word1 with word2, s = string
+
+grep raju employee.csv
+
+sed -i 's/word1/word2/g; s/word3/word4/g' file1    : to replace multiple words , g globally
+
+sed -i 's/linux/unix/g' file1    : to replace same word multiple times in same line
+
+sed -i '4c goodbye' file1    : to replace a line
+
+sed -i '4i goodbye' file1    : to add a line
+
+sed -i '4d' file1        : to delete 4th line
+
+=============================================================
+
+
+
+
+Process Management Commands
+=============================
+
+yum install -y nginx
+
+================================
+systemctl start/stop/restart/status servicename    : This will start/stop services in Linux
+
+Ex: yum install -y nginx
+
+systemctl status nginx
+systemctl start nginx
+systemctl status nginx
+systemctl restart nginx
+
+
+List all services in Linux
+---------------
+
+systemctl list-units --type=service --all
+
+systemctl list-units --type=service --all | grep nginx
+
+
+ps                : Display running processes.
+-aux: Show all processes.
+
+ps aux                 : Shows all running processes with detailed information.
+
+
+top                : Monitor system processes in real-time.
+
+
+
+pgrep process_name         : lists all processes with the specified name.
+
+Ex: pgrep nginx
+    kill -9 proccessnumber
+
+ps -ef | grep processname       :  Display process information for processname
+
+
+pkill process_name         : Terminates all processes with the specified name.
