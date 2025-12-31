@@ -1,0 +1,309 @@
+System Information Commands
+============================
+
+uname -a         : Displays all system information.
+whoami             : Shows the current username
+df -h             : Displays disk space usage in a human-readable format.
+fdisk -1        :
+du -sh directory/     : Provides the total size of the specified directory.
+free -h         : Displays memory usage in a human-readable format.
+uptime             : Shows the current system uptime.
+lscpu             : Provides detailed CPU information.
+cat /etc/os-release    : Show operating system information such as distribution name and version
+hostname        : name of the server
+date
+date +%D
+date +%T
+date +%H:%M
+
+
+rpm -qa | grep sql : Red Hat Package Manager To see application is installed or not in Linux machine
+
+rpm -qa | grep java
+rpm -qa | grep python
+
+dnf list installed    : This show all applications installed in machine
+
+dnf list installed | grep java
+
+yum list available     : This show all packages installed in machine
+
+
+
+Networking Commands
+===================
+
+ifconfig         : Shows the details of all network interfaces.
+yum install net-tools .
+
+ping google.com     : Sends ICMP echo requests to “google.com” to check connectivity.
+netstat -tuln         : Shows all listening TCP and UDP connections.
+ssh user@hostname     : Initiates an SSH connection to the specified hostname.
+
+wget http://example.com/file.txt  : Downloads “file.txt” from the specified URL.
+
+wget -o yourownnamefile.txt URL_of_file  : if you want to download and have with your desired name
+
+curl http://example.com        : Retrieves the content of a webpage from the specified URL.
+
+Calling API's using CURL command
+
+curl http://numbersapi.com/random
+
+Check port is open or not
+----------------------
+
+telnet IP port
+netstat -putan | grep 80 -- see if port 80 is opened or not
+
+
+
+
+Environment Variable Commands
+==============================
+Environment variables in Linux are dynamic values that can impact how programs and processes run on a computer
+
+printenv
+
+export VARIABLE_NAME=value             :  Sets the value of an environment variable.
+Ex: export course=devops
+
+echo $VARIABLE_NAME            :  Displays the value of a specific environment variable.
+Ex: echo $course
+
+unset VARIABLE_NAME            : Unsets or removes an environment variable.
+Ex: unset course
+
+Lets set JAVA HOME PATH
+-----------------------
+
+All the Environment variables and path are present in printenv
+
+Lets install java
+
+printenv | grep JAVA_HOME -- no java home
+
+java --version
+
+yum install java   -- it will install latest java 17
+yum install java-11-openjdk  -- it will install java 11
+
+java --version
+
+Now i want to use java 11
+
+Java is installed in /usr/lib/jvm
+
+cd /usr/lib/jvm
+ls
+
+export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-11.0.25.0.9-3.el9.x86_64"
+
+printenv  -- it shows JAVA_HOME
+
+export PATH=$JAVA_HOME/bin:$PATH    
+
+ [he PATH variable is an environment variable that tells the system where to look for executable files when a user enters a command in the terminal:]
+
+java --version -- now it is java 11
+
+
+What we did was temporary , if you logout this export variable is gone, to make it permanent ./bashrc
+
+How to add a new Env Variable permanently on Linux?
+
+Be in Home directory : cd
+
+ls -al
+
+vi .bashrc
+
+export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-11.0.25.0.9-3.el9.x86_64"
+
+source .bashrc
+
+
+======================
+
+awk command - Print specific column from csv file
+
+download sample csv file from GitHub
+https://gist.github.com/kevin336/acbb2271e66c10a5b73aacf82ca82784/archive/e38afe62e088394d61ed30884dd50a6826eee0a8.zip
+
+unzip e38afe62e088394d61ed30884dd50a6826eee0a8.zip
+
+awk -F , '{print $2}' employees.csv   --> this will print the second column
+
+awk '/ST_CLERK/ {print}' employees.csv  --> this will print ST_CLERK details
+
+==============================
+
+
+
+User Management Commands
+=========================
+USERS & GROUPS:
+---------------
+
+AUTHENTICATION: TO LOGIN   -- > create user and set password
+AUTHORIZATION: PERMISSION TO WORK  -- > add him to the sudo file
+
+
+root: will have all permissions
+ec2-user: not have all permissions
+
+
+useradd reyaz        : to create a user called Reyaz
+passwd reyaz        : to set password for the user
+cat /etc/passwd        : to list the users
+
+su - reyaz        : to switch to reyaz user
+useradd pushpa         : permissions denied
+now try sudo useradd pushpa : reyaz is not in the sudoers file
+
+be in root, do ctrl d or logout or exit
+
+visudo
+
+go to line number 100, :100 --> copy - yy, paste - p
+root    ALL=(ALL)       ALL
+reyaz    ALL=(ALL)       ALL
+
+su - reyaz
+
+Now, sudo useradd pushpa : it works
+
+cat /etc/passwd --> it will show pushpa
+
+groupadd devops        : to create a group called devops
+cat /etc/group        : to list a group
+usermod -aG devops reyaz: to add user to a group
+
+useradd jhon
+userdel john        : Delete the john account.
+
+
+
+who            :  Show who is currently logged in.
+
+last            :  Show the recent login history of users.
+
+su – username          :    Switch to another user account with the user’s environment.
+
+w            : Show who is logged in and what they are doing.
+
+==========================================================================================================
+
+ls -ltr
+
+directory  user group others
+d          rwx   r-x    r-x
+
+r - read = 4
+w - write = 2
+x - execute = 1
+
+
+        LEGEND
+        U = User
+        G = Group
+        W = World
+
+        r = Read
+        w = write
+        x = execute
+        - = no access
+
+
+To change the permission use chmod
+
+touch test.txt
+ls -ltr
+
+-rw-r--r--.  1 root root     0 Dec 22 07:59  test.txt
+
+The above has 644 (rw=4+2 , r=4, r=4)
+
+         U   G   O
+        rwx rwx rwx     chmod 777 filename
+        rwx rwx r-x     chmod 775 filename
+        rwx r-x r-x     chmod 755 filename
+        rw- rw- r--     chmod 664 filename
+        rw- r-- r--     chmod 644 filename
+
+chmod 400 file1
+
+INSTALLING PACKAGES
+====================
+
+
+# Search for a package by keyword.
+yum search keyword
+
+# Install package.
+yum install package
+
+# Display description and summary information about package.
+yum info package
+
+# Remove/uninstall package.
+yum remove package
+
+
+ LOGGING AND AUDITING
+=======================
+
+# Display logs stored in the systemd journal.
+journalctl
+
+# Display logs for a specific unit (service).
+journalctl -u servicename
+
+lscpu -- CPU Info
+lsmem - -mem info
+
+
+fdisk -l  -- disk information
+lsblk
+
+ifconfig  -- to see the ip
+ip addr
+hostname -i
+
+
+
+WinSCP Setup | Transferring Files from Windows to Linux(Redhat)
+=====================================================
+
+Install WinSCP --> click on newtab
+
+Open WinSCP --> SFTP --> Hostname=IP , Port = 22, username = ec2-user, Advanced --> authentication --> select ppk
+Transfer files
+
+
+Transfer files between Linux Servers using SCP command
+===================================================
+
+SCP - Secure Copy Protocol , is a command line tool used for securely transferring files between local and a remote host or between
+2 remote hosts using SSH for Encryption and authentication
+
+Syntax
+======
+scp /local/file username@remotehost:/path/
+
+scp -i key-pair-name.pem /path/my-file.txt ec2-user@privateip:/path/
+
+Launch another RedHat Linux EC2
+
+create a pem file  vi MyKey.pem
+chmod 400 pemfile
+
+scp -i MyKey.pem file1 ec2-user@172.31.19.242:/tmp/
+
+or
+
+scp -i MyKey.pem test.zip ec2-user@172.31.6.82:/home/ec2-user/
+
+scp -r -i MyKey.pem test/ ec2-user@172.31.6.82:/home/ec2-user/  ---> for dir recursive
+
+Login to another EC2 and check the files
